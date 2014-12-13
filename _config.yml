@@ -1,0 +1,14 @@
+# Site settings
+title: SecretSanta
+email: root@apoorv.pro
+description: > #
+  Tomy, the little elf is very naughty and has put all the gifts
+  created by Elves on the way to MerryLand. Help Santa find
+  all gifts before Christmas and return them back to MerryLand.
+baseurl: "/SecretSanta"
+url: "http://apoorvsaxena.github.io"
+github_username:  ApoorvSaxena
+
+# Build settings
+markdown: kramdown
+exclude: [node_modules, Gruntfile.js, package.json]
