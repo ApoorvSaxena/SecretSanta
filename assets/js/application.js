@@ -8,7 +8,12 @@ function preload(){
     var device = game.device.desktop ? 'desktop' : 'mobile';
     game.load.image('background', '{{ site.baseurl }}/assets/images/' + device + '/background.png');
     game.load.image('santa', '{{ site.baseurl }}/assets/images/' + device + '/santa-sleigh.png');
-    game.load.spritesheet('gift', '{{ site.baseurl }}/assets/images/icons/gifts.png', 50, 80, 8);
+    if(device === 'desktop') {
+        game.load.spritesheet('gift', '{{ site.baseurl }}/assets/images/' + device + '/gifts.png', 50, 80, 8);
+    }
+    else {
+        game.load.spritesheet('gift', '{{ site.baseurl }}/assets/images/' + device + '/gifts.png', 30, 48, 8);
+    }
     //autoalign the game stage
     game.scale.pageAlignHorizontally = true;
     game.scale.pageAlignVertically = true;
