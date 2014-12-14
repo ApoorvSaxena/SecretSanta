@@ -105,6 +105,9 @@ function collectGift(santa, gift) {
     game.audio.santaLaugh.play('santa-laugh');
     gift.kill();
     updateScore();
+    if ("vibrate" in navigator) {
+        navigator.vibrate(200);
+    }
 }
 
 function updateScore() {
