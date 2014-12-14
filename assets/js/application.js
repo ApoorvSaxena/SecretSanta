@@ -1,7 +1,7 @@
 ---
 ---
 
-var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, '', { preload:preload, create: create, update:update});
+var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', { preload:preload, create: create, update:update});
 var activeGameTime = 0;
 
 function preload(){
@@ -31,7 +31,22 @@ function create() {
     createBackground();
     createSanta();
     createGifts();
+    addScore();
     addAudio();
+}
+
+function addScore() {
+    var imagePosX = (0.95 * game.world.width),
+        imagePosY = (0.07 * game.world.height),
+        textPosX = imagePosX + (0.01 * game.world.width),
+        textPosY = imagePosY - (0.005 * game.world.height);
+        image = game.add.sprite(imagePosX, imagePosY, 'gift');
+    image.scale.set(0.5, 0.5);
+    image.anchor.set(0.9);
+    scoreText = game.add.text(textPosX, textPosY - (0.04 * game.world.height), '0', {
+        font: '22px Helvetica',
+        fill: '#fff'
+    });
 }
 
 function addAudio() {
@@ -70,7 +85,7 @@ function createGift() {
     game.physics.arcade.enable(gift);
     gift.body.bounce.y = randomBounce();
     gift.body.velocity.x = -100;
-    gift.alpha = 0;
+    gift.alpha = 0.5;
     game.add.tween(gift).to( { alpha: 1 }, 2000, Phaser.Easing.Linear.None, true, 0, 1000, true);
 }
 
@@ -84,6 +99,11 @@ function associatedInteractions() {
 
 function collectGift(santa, gift) {
     gift.kill();
+    updateScore();
+}
+
+function updateScore() {
+    scoreText.text = gifts.countDead();
 }
 
 function animateSanta() {
