@@ -36,7 +36,7 @@ function create() {
 }
 
 function addScore() {
-    var imagePosX = (0.95 * game.world.width),
+    var imagePosX = (0.90 * game.world.width),
         imagePosY = (0.07 * game.world.height),
         textPosX = imagePosX + (0.01 * game.world.width),
         textPosY = imagePosY - (0.005 * game.world.height);
@@ -123,8 +123,6 @@ function update() {
     var upKeyPressed = upKey.isDown;
 
     background.tilePosition.x -= 2;
-    // santa.body.velocity.y = 0;
-       // Create Baddie after every 4 seconds
     if (game.time.now > activeGameTime) {
         createGift();
         animateSanta();
