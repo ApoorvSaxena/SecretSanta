@@ -23,6 +23,7 @@ function preload(){
 
 function preloadAudio() {
     game.load.audio('jingle', '{{ site.baseurl }}/assets/audio/jingle-bells.mp3');
+    game.load.audio('santa', '{{ site.baseurl }}/assets/audio/santa.mp3');
 }
 
 function create() {
@@ -50,8 +51,11 @@ function addScore() {
 }
 
 function addAudio() {
-    game.audio = game.add.audio('jingle', 1, true);
-    game.audio.play();
+    game.audio = {};
+    var jingle = game.add.audio('jingle', 0.05, true);
+    jingle.play();
+    game.audio.santaLaugh = game.add.audio('santa', 0.05);
+    game.audio.santaLaugh.addMarker('santa-laugh', 1, 10.9);
 }
 
 function attachInputEvents() {
@@ -98,6 +102,7 @@ function associatedInteractions() {
 }
 
 function collectGift(santa, gift) {
+    game.audio.santaLaugh.play('santa-laugh');
     gift.kill();
     updateScore();
 }
