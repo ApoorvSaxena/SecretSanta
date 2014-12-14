@@ -46,7 +46,11 @@
         <style>
             body {
                 margin: 0px 0px 1px 0px; /* the extra 1px allows the iOS inner/outer check to work */
-                background-color:#333;
+                background: -webkit-linear-gradient(90deg, #517fa4 10%, #243949 90%); /* Chrome 10+, Saf5.1+ */
+                background:    -moz-linear-gradient(90deg, #517fa4 10%, #243949 90%); /* FF3.6+ */
+                background:     -ms-linear-gradient(90deg, #517fa4 10%, #243949 90%); /* IE10 */
+                background:      -o-linear-gradient(90deg, #517fa4 10%, #243949 90%); /* Opera 11.10+ */
+                background:         linear-gradient(90deg, #517fa4 10%, #243949 90%); /* W3C */
             }
         </style>
         <script src="{{ site.baseurl }}/assets/js/phaser.min.js"></script>
