@@ -3,11 +3,13 @@
 
 var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', { preload:preload, create: create, update:update});
 var activeGameTime = 0;
+var end = false;
 
 function preload(){
     var device = game.device.desktop ? 'desktop' : 'mobile';
     game.load.image('background', '{{ site.baseurl }}/assets/images/' + device + '/background.png');
     game.load.image('santa', '{{ site.baseurl }}/assets/images/' + device + '/santa-sleigh.png');
+    game.load.image('bounds', '{{ site.baseurl }}/assets/images/1px.png');
     if(device === 'desktop') {
         game.load.spritesheet('gift', '{{ site.baseurl }}/assets/images/' + device + '/gifts.png', 50, 80, 8);
     }
@@ -30,6 +32,7 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     attachInputEvents();
     createBackground();
+    createBounds();
     createSanta();
     createGifts();
     addScore();
@@ -63,12 +66,25 @@ function attachInputEvents() {
     game.input.onDown.add(jump, this);
 }
 
+function createBounds() {
+    platforms = game.add.group();
+    platforms.enableBody = true;
+    var heights = [0, game.world.height - 1];
+    for (var i = 0; i < heights.length; i++) {
+        for (var index = 0; index < game.world.width; index++) {
+            ground = platforms.create(index, heights[i], 'bounds');
+            game.physics.arcade.enable(ground);
+            ground.body.immovable=true;
+        }
+    }
+}
+
 function createBackground() {
     background = game.add.tileSprite(0, 0, game.world.width, game.world.height, 'background');
 }
 
 function createSanta() {
-    santa = game.add.sprite((game.world.width/20), game.world.randomY, 'santa');
+    santa = game.add.sprite((game.world.width/20), (game.world.height/10), 'santa');
     game.physics.arcade.enable(santa);
     santa.body.gravity.y = 400;
     santa.body.collideWorldBounds = true;
@@ -99,6 +115,13 @@ function randomBounce() {
 
 function associatedInteractions() {
     game.physics.arcade.overlap(santa, gifts, collectGift, null, this);
+    game.physics.arcade.overlap(santa, platforms, endGame, null, this);
+}
+
+function endGame() {
+    end = true;
+    gifts.destroy();
+    gameOver();
 }
 
 function collectGift(santa, gift) {
@@ -128,14 +151,22 @@ function jump(velocity) {
 }
 
 function update() {
-    var upKeyPressed = upKey.isDown;
-
-    background.tilePosition.x -= 2;
-    if (game.time.now > activeGameTime) {
-        createGift();
-        animateSanta();
-        activeGameTime = game.time.now + 2000;
+   if(!end) {
+        var upKeyPressed = upKey.isDown;
+        background.tilePosition.x -= 2;
+        if (game.time.now > activeGameTime) {
+            createGift();
+            animateSanta();
+            activeGameTime = game.time.now + 2000;
+        }
+        associatedInteractions();
+        upKeyPressed && jump();
     }
-    associatedInteractions();
-    upKeyPressed && jump();
+}
+
+function gameOver() {
+    var txtStyle = {font: "50px Arial", fill: "red", stroke: '#000000', strokeThickness: 3},
+        txt = this.game.add.text(game.camera.width / 2, game.camera.height / 2, "Game Over", txtStyle);
+    txt.anchor.setTo(0.5, 0.5);
+    txt.fixedToCamera = true;
 }
