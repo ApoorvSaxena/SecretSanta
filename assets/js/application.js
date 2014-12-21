@@ -1,7 +1,7 @@
 ---
 ---
 
-var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'game', { preload:preload, create: create, update:update});
+var game = new Phaser.Game(window.innerWidth, window.innerHeight - 20, Phaser.AUTO, 'game', { preload:preload, create: create, update:update});
 var activeGameTime = 0;
 var end = false;
 

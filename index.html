@@ -27,21 +27,33 @@
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1 maximum-scale=1 user-scalable=0" />
         <title>Mario</title>
-        <style>
-            body {
-                margin: 0px 0px 1px 0px; /* the extra 1px allows the iOS inner/outer check to work */
-                background: -webkit-linear-gradient(90deg, #517fa4 10%, #243949 90%); /* Chrome 10+, Saf5.1+ */
-                background:    -moz-linear-gradient(90deg, #517fa4 10%, #243949 90%); /* FF3.6+ */
-                background:     -ms-linear-gradient(90deg, #517fa4 10%, #243949 90%); /* IE10 */
-                background:      -o-linear-gradient(90deg, #517fa4 10%, #243949 90%); /* Opera 11.10+ */
-                background:         linear-gradient(90deg, #517fa4 10%, #243949 90%); /* W3C */
-            }
-        </style>
+        <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/stylesheet.css" />
+        <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/snap.css" />
         <script src="{{ site.baseurl }}/assets/js/phaser.min.js"></script>
-        <script type="text/javascript" src="{{ site.baseurl }}/assets/js/application.js"></script>
+        <script src="{{ site.baseurl }}/assets/js/snap.min.js"></script>
+        <script src="{{ site.baseurl }}/assets/js/application.js"></script>
     </head>
     <body>
-        <div id="game">
+        <div class="snap-drawers">
+            <div class="snap-drawer snap-drawer-left">
+                <div>
+                    <h4>Game</h4>
+                    <ul>
+                        <li><a href="#" id="reload-button">New Game</a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
+
+        <div id="content" class="snap-content">
+            <div id="game">
+            </div>
+            <div id="toolbar">
+                <a href="#" id="open-left"></a>
+                <h1>Secret Santa</h1>
+            </div>
+        </div>
+        <script src="{{ site.baseurl }}/assets/js/zepto.min.js"></script>
+        <script src="{{ site.baseurl }}/assets/js/game.js"></script>
     </body>
 </html>
