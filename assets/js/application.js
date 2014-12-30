@@ -6,7 +6,8 @@ var activeGameTime = 0;
 var end = false;
 
 function preload(){
-    var device = game.device.desktop ? 'desktop' : 'mobile';
+    device = game.device.desktop ? 'desktop' : 'mobile';
+    game.load.image('sky', '{{ site.baseurl }}/assets/images/sky.png');
     game.load.image('background', '{{ site.baseurl }}/assets/images/' + device + '/background.png');
     game.load.image('santa', '{{ site.baseurl }}/assets/images/' + device + '/santa-sleigh.png');
     game.load.image('bounds', '{{ site.baseurl }}/assets/images/1px.png');
@@ -80,7 +81,9 @@ function createBounds() {
 }
 
 function createBackground() {
-    background = game.add.tileSprite(0, 0, game.world.width, game.world.height, 'background');
+    var sky = game.add.tileSprite(0, 0, game.world.width, game.world.height, 'sky');
+    var background_height = (device === 'desktop') ? 306 : 152;
+    background = game.add.tileSprite(0, (game.world.height - background_height), game.world.width, game.world.height, 'background');
 }
 
 function createSanta() {
